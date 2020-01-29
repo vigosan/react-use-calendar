@@ -1,5 +1,5 @@
 {
-  "name": "@vigosan/calendar",
+  "name": "@vigosan/useCalendar",
   "version": "1.0.0",
   "description": "Declarative react calendar",
   "main": "build/index.js",
@@ -21,7 +21,8 @@
   "keywords": [
     "React",
     "Component",
-    "Calendar"
+    "Calendar",
+    "Hooks"
   ],
   "author": "Vicent G. <vigosan@gmail.com>",
   "license": "MIT",
