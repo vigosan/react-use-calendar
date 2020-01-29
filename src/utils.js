@@ -11,6 +11,11 @@ const weekdays = 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.spli
 );
 const weekdaysShort = 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_');
 
+function getMonth(date) {
+  const index = date.getMonth();
+  return { index, name: months[index], shortName: monthsShort[index] };
+}
+
 function addMonth(date) {
   return add(date, { months: 1 });
 }
@@ -19,8 +24,8 @@ function subMonth(date) {
   return sub(date, { months: 1 });
 }
 
-function getMonthByIndex(index) {
-  return { index, name: months[index], shortName: monthsShort[index] };
+function getYear(date) {
+  return date.getFullYear();
 }
 
 function getWeekdays() {
@@ -30,4 +35,4 @@ function getWeekdays() {
   }, {});
 }
 
-export { getMonthByIndex, getWeekdays, addMonth, subMonth };
+export { getMonth, getYear, getWeekdays, addMonth, subMonth };

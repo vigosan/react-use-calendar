@@ -1,5 +1,5 @@
 import { useReducer } from 'react';
-import { addMonth, subMonth, getMonthByIndex, getWeekdays } from './utils';
+import { addMonth, getYear, subMonth, getMonth, getWeekdays } from './utils';
 import * as actionTypes from './actionTypes';
 
 function reducer(state, action) {
@@ -16,9 +16,8 @@ function useCalendar(startDate) {
     date: startDate || new Date(),
   });
 
-  const monthIndex = state.date.getMonth();
-  const month = getMonthByIndex(monthIndex);
-  const year = state.date.getFullYear();
+  const month = getMonth(state.date);
+  const year = getYear(state.date);
   const weekdays = getWeekdays();
   const goToNextMonth = () => dispatch({ type: actionTypes.GO_TO_NEXT_MONTH });
   const goToPrevMonth = () => dispatch({ type: actionTypes.GO_TO_PREV_MONTH });
