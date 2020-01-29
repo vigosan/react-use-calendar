@@ -12,12 +12,12 @@ function reducer(state, action) {
 }
 
 function useCalendar(startDate) {
-  const [state, dispatch] = useReducer(reducer, {
+  const [{ date }, dispatch] = useReducer(reducer, {
     date: startDate || new Date(),
   });
 
-  const month = getMonth(state.date);
-  const year = getYear(state.date);
+  const month = getMonth(date);
+  const year = getYear(date);
   const weekdays = getWeekdays();
   const goToNextMonth = () => dispatch({ type: actionTypes.GO_TO_NEXT_MONTH });
   const goToPrevMonth = () => dispatch({ type: actionTypes.GO_TO_PREV_MONTH });
