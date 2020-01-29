@@ -1,3 +1,5 @@
+import { add } from 'date-fns';
+
 const months = 'January_February_March_April_May_June_July_August_September_October_November_December'.split(
   '_',
 );
@@ -8,6 +10,10 @@ const weekdays = 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.spli
   '_',
 );
 const weekdaysShort = 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_');
+
+function addMonth(date) {
+  return add(date, { months: 1 });
+}
 
 function getMonthByIndex(index) {
   return { index, name: months[index], shortName: monthsShort[index] };
@@ -20,4 +26,4 @@ function getWeekdays() {
   }, {});
 }
 
-export { getMonthByIndex, getWeekdays };
+export { getMonthByIndex, getWeekdays, addMonth };

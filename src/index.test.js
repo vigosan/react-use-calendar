@@ -1,10 +1,10 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, act } from '@testing-library/react-hooks';
 import useCalendar from './index';
 
 describe(useCalendar, function() {
   it('returns weekdays', function() {
     const { result } = renderHook(() => useCalendar());
-    const { weekdays } = result.current;
+    const [{ weekdays }] = result.current;
     const expectedWeekdays = {
       0: { name: 'Sunday', shortName: 'Sun' },
       1: { name: 'Monday', shortName: 'Mon' },
@@ -39,7 +39,7 @@ describe(useCalendar, function() {
 
     it('returns current year', function() {
       const { result } = renderHook(() => useCalendar());
-      const { year } = result.current;
+      const [{ year }] = result.current;
       const expectedYear = 2019;
 
       expect(year).toEqual(expectedYear);
@@ -47,7 +47,7 @@ describe(useCalendar, function() {
 
     it('returns current month', function() {
       const { result } = renderHook(() => useCalendar());
-      const { month } = result.current;
+      const [{ month }] = result.current;
       const expectedMonth = {
         index: 0,
         name: 'January',
@@ -64,7 +64,7 @@ describe(useCalendar, function() {
 
     it('returns initialized year', () => {
       const { result } = renderHook(() => useCalendar(date));
-      const { year } = result.current;
+      const [{ year }] = result.current;
 
       const expectedYear = 2018;
       expect(year).toEqual(expectedYear);
@@ -72,7 +72,7 @@ describe(useCalendar, function() {
 
     it('returns initialized month', function() {
       const { result } = renderHook(() => useCalendar(date));
-      const { month } = result.current;
+      const [{ month }] = result.current;
       const expectedMonth = {
         index: 4,
         name: 'May',
@@ -80,6 +80,29 @@ describe(useCalendar, function() {
       };
 
       expect(month).toEqual(expectedMonth);
+    });
+  });
+
+  describe('actions', function() {
+    const when = '2018-05-13T09:00:00.000Z';
+    const date = new Date(when);
+
+    describe('goToNextMonth', function() {
+      it('moves date to next month', function() {
+        const { result } = renderHook(() => useCalendar(date));
+        const [_, actions] = result.current; // eslint-disable-line no-unused-vars
+
+        act(() => actions.goToNextMonth());
+        let [state] = result.current;
+
+        const expectedMonth = {
+          index: 5,
+          name: 'June',
+          shortName: 'Jun',
+        };
+
+        expect(state.month).toEqual(expectedMonth);
+      });
     });
   });
 });
