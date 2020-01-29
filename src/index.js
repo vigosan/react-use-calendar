@@ -1,17 +1,18 @@
 import { useState } from 'react';
-import { months, monthsShort } from './utils';
+import { getMonthByIndex, getWeekdays } from './utils';
 
 function useCalendar(date) {
   const [initialDate] = useState(date || new Date());
+
   const monthIndex = initialDate.getMonth();
+  const month = getMonthByIndex(monthIndex);
+  const year = initialDate.getFullYear();
+  const weekdays = getWeekdays();
 
   return {
-    month: {
-      index: monthIndex,
-      name: months[monthIndex],
-      shortName: monthsShort[monthIndex],
-    },
-    year: initialDate.getFullYear(),
+    month,
+    year,
+    weekdays,
   };
 }
 
