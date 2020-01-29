@@ -28,6 +28,18 @@ describe('useCalendar', () => {
 
       expect(year).toEqual(expectedYear);
     });
+
+    it('returns current month', () => {
+      const { result } = renderHook(() => useCalendar());
+      const { month } = result.current;
+      const expectedMonth = {
+        index: 0,
+        name: 'January',
+        shortName: 'Jan',
+      };
+
+      expect(month).toEqual(expectedMonth);
+    });
   });
 
   describe('with initialization', function() {
@@ -40,6 +52,18 @@ describe('useCalendar', () => {
 
       const expectedYear = 2018;
       expect(year).toEqual(expectedYear);
+    });
+
+    it('returns initialized month', () => {
+      const { result } = renderHook(() => useCalendar(date));
+      const { month } = result.current;
+      const expectedMonth = {
+        index: 4,
+        name: 'May',
+        shortName: 'May',
+      };
+
+      expect(month).toEqual(expectedMonth);
     });
   });
 });
