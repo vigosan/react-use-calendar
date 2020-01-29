@@ -1,4 +1,4 @@
-import { add } from 'date-fns';
+import { add, sub } from 'date-fns';
 
 const months = 'January_February_March_April_May_June_July_August_September_October_November_December'.split(
   '_',
@@ -15,6 +15,10 @@ function addMonth(date) {
   return add(date, { months: 1 });
 }
 
+function subMonth(date) {
+  return sub(date, { months: 1 });
+}
+
 function getMonthByIndex(index) {
   return { index, name: months[index], shortName: monthsShort[index] };
 }
@@ -26,4 +30,4 @@ function getWeekdays() {
   }, {});
 }
 
-export { getMonthByIndex, getWeekdays, addMonth };
+export { getMonthByIndex, getWeekdays, addMonth, subMonth };

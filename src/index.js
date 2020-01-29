@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { addMonth, getMonthByIndex, getWeekdays } from './utils';
+import { addMonth, subMonth, getMonthByIndex, getWeekdays } from './utils';
 
 function useCalendar(startDate) {
   const [date, setDate] = useState(startDate || new Date());
@@ -9,6 +9,7 @@ function useCalendar(startDate) {
   const year = date.getFullYear();
   const weekdays = getWeekdays();
   const goToNextMonth = () => setDate(addMonth(date));
+  const goToPrevMonth = () => setDate(subMonth(date));
 
   return [
     {
@@ -16,7 +17,7 @@ function useCalendar(startDate) {
       year,
       weekdays,
     },
-    { goToNextMonth },
+    { goToNextMonth, goToPrevMonth },
   ];
 }
 

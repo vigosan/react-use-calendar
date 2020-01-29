@@ -104,5 +104,23 @@ describe(useCalendar, function() {
         expect(state.month).toEqual(expectedMonth);
       });
     });
+
+    describe('goToPrevMonth', function() {
+      it('moves date to prev month', function() {
+        const { result } = renderHook(() => useCalendar(date));
+        const [_, actions] = result.current; // eslint-disable-line no-unused-vars
+
+        act(() => actions.goToPrevMonth());
+        let [state] = result.current;
+
+        const expectedMonth = {
+          index: 3,
+          name: 'April',
+          shortName: 'Apr',
+        };
+
+        expect(state.month).toEqual(expectedMonth);
+      });
+    });
   });
 });
