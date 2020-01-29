@@ -1,3 +1,8 @@
-import Calendar from './Calendar';
+import { useState } from 'react';
 
-export default Calendar;
+function useCalendar(date) {
+  const [initialDate] = useState(date || new Date());
+  return { year: initialDate.getFullYear() };
+}
+
+export default useCalendar;
