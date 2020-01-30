@@ -14,7 +14,7 @@ export const Component = () => {
 
   return (
     <div>
-      <caption>{year}</caption>
+      <caption>{`${month.name} ${year}`}</caption>
       <table>
         <thead>
           <tr>
@@ -25,9 +25,25 @@ export const Component = () => {
         </thead>
         <tbody>
           {weeks.map(week => (
-            <tr key={`week-${week}`}>
+            <tr key={`week-${week}`} style={{ border: 0 }}>
               {week.map(day => (
-                <td key={`day-${day.index}-${day.dayOfMonth}`}>
+                <td
+                  key={`day-${day.index}-${day.dayOfMonth}`}
+                  style={{
+                    border: '0',
+                    ...(day.isToday && {
+                      backgroundColor: '#FC8181',
+                      borderRadius: '75px',
+                    }),
+                    ...(day.isSameMonth &&
+                      day.isWeekend && {
+                        backgroundColor: '#CBD5E0',
+                      }),
+                    ...(!day.isSameMonth && {
+                      color: '#CBD5E0',
+                    }),
+                  }}
+                >
                   {day.dayOfMonth}
                 </td>
               ))}
