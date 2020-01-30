@@ -12,21 +12,22 @@ import {
   startOfWeek,
   sub,
 } from 'date-fns';
-
-const months = 'January_February_March_April_May_June_July_August_September_October_November_December'.split(
-  '_',
-);
-const monthsShort = 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sept_Oct_Nov_Dec'.split(
-  '_',
-);
-const weekdays = 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split(
-  '_',
-);
-const weekdaysShort = 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_');
+import {
+  DAYS_OF_WEEK,
+  MONTHS,
+  MONTHS_SHORT,
+  WEEKDAYS,
+  WEEKDAYS_SHORT,
+} from './constants';
 
 function getMonth(date) {
-  const index = date.getMonth();
-  return { index, name: months[index], shortName: monthsShort[index] };
+  const monthIndex = date.getMonth();
+
+  return {
+    monthIndex,
+    name: MONTHS[monthIndex],
+    shortName: MONTHS_SHORT[monthIndex],
+  };
 }
 
 function addMonth(date) {
@@ -38,37 +39,34 @@ function subMonth(date) {
 }
 
 function getDay(date) {
-  const index = date.getDay();
+  const dayIndex = date.getDay();
+  const now = new Date();
 
   return {
-    index,
-    name: weekdays[index],
-    shortName: weekdays[index],
+    dayIndex,
+    name: WEEKDAYS[dayIndex],
+    shortName: WEEKDAYS[dayIndex],
     dayOfMonth: getDate(date),
-    isToday: isSameDay(date, new Date()),
+    isToday: isSameDay(date, now),
     isWeekend: isWeekend(date),
-    isSameMonth: isSameMonth(date, new Date()),
+    isSameMonth: isSameMonth(date, now),
   };
 }
 
 function getWeeks(date) {
   const start = startOfWeek(startOfMonth(date));
   const end = startOfWeek(endOfMonth(date));
-  let days;
-  const weeks = eachWeekOfInterval({ start, end }).reduce(
-    (weeks, firstDayOfWeek, i) => {
-      days = eachDayOfInterval({
+
+  return eachWeekOfInterval({ start, end }).reduce((acc, firstDayOfWeek) => {
+    acc.push(
+      eachDayOfInterval({
         start: firstDayOfWeek,
         end: endOfWeek(firstDayOfWeek),
-      });
+      }).map(getDay),
+    );
 
-      weeks[i] = days.map(day => getDay(day));
-      return weeks;
-    },
-    {},
-  );
-
-  return weeks;
+    return acc;
+  }, []);
 }
 
 function getYear(date) {
@@ -76,10 +74,10 @@ function getYear(date) {
 }
 
 function getWeekdays() {
-  return [...Array(7).keys()].reduce((acc, i) => {
-    acc[i] = { name: weekdays[i], shortName: weekdaysShort[i] };
+  return [...Array(DAYS_OF_WEEK).keys()].reduce((acc, i) => {
+    acc.push({ name: WEEKDAYS[i], shortName: WEEKDAYS_SHORT[i] });
     return acc;
-  }, {});
+  }, []);
 }
 
 export { addMonth, getMonth, getWeekdays, getWeeks, getYear, subMonth };

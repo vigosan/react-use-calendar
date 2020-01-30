@@ -5,15 +5,15 @@ describe(useCalendar, function() {
   it('returns weekdays', function() {
     const { result } = renderHook(() => useCalendar());
     const [{ weekdays }] = result.current;
-    const expectedWeekdays = {
-      0: { name: 'Sunday', shortName: 'Sun' },
-      1: { name: 'Monday', shortName: 'Mon' },
-      2: { name: 'Tuesday', shortName: 'Tue' },
-      3: { name: 'Wednesday', shortName: 'Wed' },
-      4: { name: 'Thursday', shortName: 'Thu' },
-      5: { name: 'Friday', shortName: 'Fri' },
-      6: { name: 'Saturday', shortName: 'Sat' },
-    };
+    const expectedWeekdays = [
+      { name: 'Sunday', shortName: 'Sun' },
+      { name: 'Monday', shortName: 'Mon' },
+      { name: 'Tuesday', shortName: 'Tue' },
+      { name: 'Wednesday', shortName: 'Wed' },
+      { name: 'Thursday', shortName: 'Thu' },
+      { name: 'Friday', shortName: 'Fri' },
+      { name: 'Saturday', shortName: 'Sat' },
+    ];
 
     expect(weekdays).toEqual(expectedWeekdays);
   });
@@ -49,7 +49,7 @@ describe(useCalendar, function() {
       const { result } = renderHook(() => useCalendar());
       const [{ month }] = result.current;
       const expectedMonth = {
-        index: 0,
+        monthIndex: 0,
         name: 'January',
         shortName: 'Jan',
       };
@@ -74,7 +74,7 @@ describe(useCalendar, function() {
       const { result } = renderHook(() => useCalendar(date));
       const [{ month }] = result.current;
       const expectedMonth = {
-        index: 4,
+        monthIndex: 4,
         name: 'May',
         shortName: 'May',
       };
@@ -86,11 +86,11 @@ describe(useCalendar, function() {
       const { result } = renderHook(() => useCalendar());
       const [{ weeks }] = result.current;
 
-      const expectedMonth = {
-        '0': [
+      const expectedMonth = [
+        [
           {
             dayOfMonth: 29,
-            index: 0,
+            dayIndex: 0,
             isSameMonth: false,
             isToday: false,
             isWeekend: true,
@@ -99,7 +99,7 @@ describe(useCalendar, function() {
           },
           {
             dayOfMonth: 30,
-            index: 1,
+            dayIndex: 1,
             isSameMonth: false,
             isToday: false,
             isWeekend: false,
@@ -108,7 +108,7 @@ describe(useCalendar, function() {
           },
           {
             dayOfMonth: 31,
-            index: 2,
+            dayIndex: 2,
             isSameMonth: false,
             isToday: false,
             isWeekend: false,
@@ -117,7 +117,7 @@ describe(useCalendar, function() {
           },
           {
             dayOfMonth: 1,
-            index: 3,
+            dayIndex: 3,
             isSameMonth: true,
             isToday: false,
             isWeekend: false,
@@ -126,7 +126,7 @@ describe(useCalendar, function() {
           },
           {
             dayOfMonth: 2,
-            index: 4,
+            dayIndex: 4,
             isSameMonth: true,
             isToday: false,
             isWeekend: false,
@@ -135,7 +135,7 @@ describe(useCalendar, function() {
           },
           {
             dayOfMonth: 3,
-            index: 5,
+            dayIndex: 5,
             isSameMonth: true,
             isToday: false,
             isWeekend: false,
@@ -144,7 +144,7 @@ describe(useCalendar, function() {
           },
           {
             dayOfMonth: 4,
-            index: 6,
+            dayIndex: 6,
             isSameMonth: true,
             isToday: false,
             isWeekend: true,
@@ -152,10 +152,10 @@ describe(useCalendar, function() {
             shortName: 'Saturday',
           },
         ],
-        '1': [
+        [
           {
             dayOfMonth: 5,
-            index: 0,
+            dayIndex: 0,
             isSameMonth: true,
             isToday: false,
             isWeekend: true,
@@ -164,7 +164,7 @@ describe(useCalendar, function() {
           },
           {
             dayOfMonth: 6,
-            index: 1,
+            dayIndex: 1,
             isSameMonth: true,
             isToday: false,
             isWeekend: false,
@@ -173,7 +173,7 @@ describe(useCalendar, function() {
           },
           {
             dayOfMonth: 7,
-            index: 2,
+            dayIndex: 2,
             isSameMonth: true,
             isToday: false,
             isWeekend: false,
@@ -182,7 +182,7 @@ describe(useCalendar, function() {
           },
           {
             dayOfMonth: 8,
-            index: 3,
+            dayIndex: 3,
             isSameMonth: true,
             isToday: false,
             isWeekend: false,
@@ -191,7 +191,7 @@ describe(useCalendar, function() {
           },
           {
             dayOfMonth: 9,
-            index: 4,
+            dayIndex: 4,
             isSameMonth: true,
             isToday: false,
             isWeekend: false,
@@ -200,7 +200,7 @@ describe(useCalendar, function() {
           },
           {
             dayOfMonth: 10,
-            index: 5,
+            dayIndex: 5,
             isSameMonth: true,
             isToday: false,
             isWeekend: false,
@@ -209,7 +209,7 @@ describe(useCalendar, function() {
           },
           {
             dayOfMonth: 11,
-            index: 6,
+            dayIndex: 6,
             isSameMonth: true,
             isToday: false,
             isWeekend: true,
@@ -217,10 +217,10 @@ describe(useCalendar, function() {
             shortName: 'Saturday',
           },
         ],
-        '2': [
+        [
           {
             dayOfMonth: 12,
-            index: 0,
+            dayIndex: 0,
             isSameMonth: true,
             isToday: false,
             isWeekend: true,
@@ -229,7 +229,7 @@ describe(useCalendar, function() {
           },
           {
             dayOfMonth: 13,
-            index: 1,
+            dayIndex: 1,
             isSameMonth: true,
             isToday: false,
             isWeekend: false,
@@ -238,7 +238,7 @@ describe(useCalendar, function() {
           },
           {
             dayOfMonth: 14,
-            index: 2,
+            dayIndex: 2,
             isSameMonth: true,
             isToday: false,
             isWeekend: false,
@@ -247,7 +247,7 @@ describe(useCalendar, function() {
           },
           {
             dayOfMonth: 15,
-            index: 3,
+            dayIndex: 3,
             isSameMonth: true,
             isToday: false,
             isWeekend: false,
@@ -256,7 +256,7 @@ describe(useCalendar, function() {
           },
           {
             dayOfMonth: 16,
-            index: 4,
+            dayIndex: 4,
             isSameMonth: true,
             isToday: false,
             isWeekend: false,
@@ -265,7 +265,7 @@ describe(useCalendar, function() {
           },
           {
             dayOfMonth: 17,
-            index: 5,
+            dayIndex: 5,
             isSameMonth: true,
             isToday: false,
             isWeekend: false,
@@ -274,7 +274,7 @@ describe(useCalendar, function() {
           },
           {
             dayOfMonth: 18,
-            index: 6,
+            dayIndex: 6,
             isSameMonth: true,
             isToday: false,
             isWeekend: true,
@@ -282,10 +282,10 @@ describe(useCalendar, function() {
             shortName: 'Saturday',
           },
         ],
-        '3': [
+        [
           {
             dayOfMonth: 19,
-            index: 0,
+            dayIndex: 0,
             isSameMonth: true,
             isToday: false,
             isWeekend: true,
@@ -294,7 +294,7 @@ describe(useCalendar, function() {
           },
           {
             dayOfMonth: 20,
-            index: 1,
+            dayIndex: 1,
             isSameMonth: true,
             isToday: false,
             isWeekend: false,
@@ -303,7 +303,7 @@ describe(useCalendar, function() {
           },
           {
             dayOfMonth: 21,
-            index: 2,
+            dayIndex: 2,
             isSameMonth: true,
             isToday: false,
             isWeekend: false,
@@ -312,7 +312,7 @@ describe(useCalendar, function() {
           },
           {
             dayOfMonth: 22,
-            index: 3,
+            dayIndex: 3,
             isSameMonth: true,
             isToday: false,
             isWeekend: false,
@@ -321,7 +321,7 @@ describe(useCalendar, function() {
           },
           {
             dayOfMonth: 23,
-            index: 4,
+            dayIndex: 4,
             isSameMonth: true,
             isToday: false,
             isWeekend: false,
@@ -330,7 +330,7 @@ describe(useCalendar, function() {
           },
           {
             dayOfMonth: 24,
-            index: 5,
+            dayIndex: 5,
             isSameMonth: true,
             isToday: false,
             isWeekend: false,
@@ -339,7 +339,7 @@ describe(useCalendar, function() {
           },
           {
             dayOfMonth: 25,
-            index: 6,
+            dayIndex: 6,
             isSameMonth: true,
             isToday: false,
             isWeekend: true,
@@ -347,10 +347,10 @@ describe(useCalendar, function() {
             shortName: 'Saturday',
           },
         ],
-        '4': [
+        [
           {
             dayOfMonth: 26,
-            index: 0,
+            dayIndex: 0,
             isSameMonth: true,
             isToday: false,
             isWeekend: true,
@@ -359,7 +359,7 @@ describe(useCalendar, function() {
           },
           {
             dayOfMonth: 27,
-            index: 1,
+            dayIndex: 1,
             isSameMonth: true,
             isToday: false,
             isWeekend: false,
@@ -368,7 +368,7 @@ describe(useCalendar, function() {
           },
           {
             dayOfMonth: 28,
-            index: 2,
+            dayIndex: 2,
             isSameMonth: true,
             isToday: false,
             isWeekend: false,
@@ -377,7 +377,7 @@ describe(useCalendar, function() {
           },
           {
             dayOfMonth: 29,
-            index: 3,
+            dayIndex: 3,
             isSameMonth: true,
             isToday: false,
             isWeekend: false,
@@ -386,7 +386,7 @@ describe(useCalendar, function() {
           },
           {
             dayOfMonth: 30,
-            index: 4,
+            dayIndex: 4,
             isSameMonth: true,
             isToday: true,
             isWeekend: false,
@@ -395,7 +395,7 @@ describe(useCalendar, function() {
           },
           {
             dayOfMonth: 31,
-            index: 5,
+            dayIndex: 5,
             isSameMonth: true,
             isToday: false,
             isWeekend: false,
@@ -404,7 +404,7 @@ describe(useCalendar, function() {
           },
           {
             dayOfMonth: 1,
-            index: 6,
+            dayIndex: 6,
             isSameMonth: false,
             isToday: false,
             isWeekend: true,
@@ -412,7 +412,8 @@ describe(useCalendar, function() {
             shortName: 'Saturday',
           },
         ],
-      };
+      ];
+
       expect(weeks).toEqual(expectedMonth);
     });
   });
@@ -430,7 +431,7 @@ describe(useCalendar, function() {
         let [state] = result.current;
 
         const expectedMonth = {
-          index: 5,
+          monthIndex: 5,
           name: 'June',
           shortName: 'Jun',
         };
@@ -448,7 +449,7 @@ describe(useCalendar, function() {
         let [state] = result.current;
 
         const expectedMonth = {
-          index: 3,
+          monthIndex: 3,
           name: 'April',
           shortName: 'Apr',
         };

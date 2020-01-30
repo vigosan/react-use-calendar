@@ -7,13 +7,13 @@ import {
   getYear,
   subMonth,
 } from './utils';
-import * as actionTypes from './actionTypes';
+import { GO_TO_PREV_MONTH, GO_TO_NEXT_MONTH } from './constants';
 
 function reducer(state, action) {
   switch (action.type) {
-    case actionTypes.GO_TO_NEXT_MONTH:
+    case GO_TO_NEXT_MONTH:
       return { ...state, date: addMonth(state.date) };
-    case actionTypes.GO_TO_PREV_MONTH:
+    case GO_TO_PREV_MONTH:
       return { ...state, date: subMonth(state.date) };
   }
 }
@@ -27,8 +27,8 @@ function useCalendar(startDate) {
   const weekdays = getWeekdays();
   const weeks = getWeeks(date);
   const year = getYear(date);
-  const goToNextMonth = () => dispatch({ type: actionTypes.GO_TO_NEXT_MONTH });
-  const goToPrevMonth = () => dispatch({ type: actionTypes.GO_TO_PREV_MONTH });
+  const goToNextMonth = () => dispatch({ type: GO_TO_NEXT_MONTH });
+  const goToPrevMonth = () => dispatch({ type: GO_TO_PREV_MONTH });
 
   return [
     {

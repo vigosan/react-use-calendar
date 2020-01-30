@@ -7,33 +7,32 @@ export default {
 };
 
 export const Component = () => {
-  const [{ weekdays, weeks }, { goToPrevMonth, goToNextMonth }] = useCalendar();
+  const [
+    { weekdays, weeks, year, month },
+    { goToPrevMonth, goToNextMonth },
+  ] = useCalendar();
 
   return (
     <div>
+      <caption>{year}</caption>
       <table>
         <thead>
           <tr>
-            {Object.keys(weekdays).map(weekday => (
-              <th key={`weekday-${weekday}`}>{weekdays[weekday].shortName}</th>
+            {weekdays.map(weekday => (
+              <th key={`weekday-${weekday.shortName}`}>{weekday.shortName}</th>
             ))}
           </tr>
         </thead>
-
         <tbody>
-          {Object.keys(weeks).map(week => {
-            return (
-              <tr key={`week-${week}`}>
-                {weeks[week].map(day => {
-                  return (
-                    <td key={`day-${day.index}-${day.dayOfMonth}`}>
-                      {day.dayOfMonth}
-                    </td>
-                  );
-                })}
-              </tr>
-            );
-          })}
+          {weeks.map(week => (
+            <tr key={`week-${week}`}>
+              {week.map(day => (
+                <td key={`day-${day.index}-${day.dayOfMonth}`}>
+                  {day.dayOfMonth}
+                </td>
+              ))}
+            </tr>
+          ))}
         </tbody>
       </table>
       <button onClick={goToPrevMonth}>Prev</button>
